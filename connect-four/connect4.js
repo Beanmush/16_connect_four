@@ -71,13 +71,15 @@ class Game {
     let filled = document.getElementById(`${y}-${x}`)
     
     piece.setAttribute("class", 'piece');
-    piece.classList.add(`p${this.currPlayer}`);
+    piece.style.backgroundColor = this.currPlayer.color;
     filled.append(piece);
   }
 
   endGame(msg) {
     // TODO: pop up alert message
     alert(msg);
+    const top = document.querySelector("#column-top")
+    top.removeEventListener("click", this.handleGameClick);
   }
 
   handleClick(evt) {
@@ -98,7 +100,7 @@ class Game {
     // check for win
     if (this.checkForWin()) {
       this.gameOver = true;
-      return this.endGame(`Player ${this.currPlayer} won!`);
+      return this.endGame(`${this.currPlayer.color} player  won!`);
     }
   
     // check for tie
@@ -144,6 +146,17 @@ class Game {
   }
 }
 
+class Player {
+  constructor(color) {
+    this.color = color;
+  }
+}
+
+document.getElementById("start-game").addEventListener("click", () => {
+  let p1 = new Player(document.getElementById("p1-color").value);
+  let p2 = new Player(document.getElementById("p2-color").value);
+  new Game(p1, p2);
+})
 
 
 /** makeBoard: create in-JS board structure:
