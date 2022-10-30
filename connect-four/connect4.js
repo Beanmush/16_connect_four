@@ -24,6 +24,10 @@ class Game {
     }
   }
   
+  /** makeBoard: create in-JS board structure:
+ *    board = array of rows, each row is array of cells  (board[y][x])
+ */
+
   makeHtmlBoard() {
     // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
     const board = document.getElementById("board");
@@ -58,7 +62,7 @@ class Game {
 
   findSpotForCol(x) {
     for (let y = this.HEIGHT - 1; y > -1; y--) {
-      if(!this.board[y][x]) {
+      if(this.board[y][x] === undefined) {
         return y;
       }
     }
@@ -70,11 +74,12 @@ class Game {
     const piece = document.createElement("div");
     let filled = document.getElementById(`${y}-${x}`)
     
-    piece.setAttribute("class", 'piece');
+    piece.setAttribute("class", "piece");
     piece.style.backgroundColor = this.currPlayer.color;
     filled.append(piece);
   }
-
+//get eslint! (airbnb repo)
+//good habit: add more specificity to functions and variables!!
   endGame(msg) {
     // TODO: pop up alert message
     alert(msg);
@@ -114,6 +119,7 @@ class Game {
     this.currPlayer = this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
+  /** checkForWin: check board cell-by-cell for "does a win start here?" */
   checkForWin() {
     const _win = cells => 
       // Check four cells to see if they're all color of current player
@@ -129,7 +135,7 @@ class Game {
           this.board[y][x] === this.currPlayer
       );
     
-
+//REVIEW NOTES: be able to confidently explain this code.(checkForWin())
     for (let y = 0; y < this.HEIGHT; y++) {
       for (let x = 0; x < this.WIDTH; x++) {
         //make array of cells to check for other cells containing player piece are inline.
@@ -159,9 +165,6 @@ document.getElementById("start-game").addEventListener("click", () => {
 })
 
 
-/** makeBoard: create in-JS board structure:
- *    board = array of rows, each row is array of cells  (board[y][x])
- */
 
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -182,7 +185,7 @@ document.getElementById("start-game").addEventListener("click", () => {
 
 
 
-/** checkForWin: check board cell-by-cell for "does a win start here?" */
+
 
 
 
